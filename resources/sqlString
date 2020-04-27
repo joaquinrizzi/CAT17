@@ -1,0 +1,98 @@
+SELECT  DISTINCT a.GOVERNINGCARRIER," +
+
+            "a.RULETARIFF, " +
+            "a.SEQNO, " +
+            "b.RULE, " +
+            "a.HIPMINFAREAPPL, " +
+            "TO_CHAR (a.CREATEDATE, 'MM-DD-YYYY HH24:MI') AS CREATEDATE " +
+            "FROM EXCLUDEBYRULE a " +
+            "LEFT OUTER JOIN EXCLBYRULERULE b ON a.CREATEDATE=b.CREATEDATE AND a.VENDOR=b.VENDOR AND a.GOVERNINGCARRIER=b.GOVERNINGCARRIER AND a.RULETARIFF=b.RULETARIFF " +
+            "LEFT OUTER JOIN EXCLBYRULEFARECLASS c ON a.CREATEDATE=c.CREATEDATE AND a.VENDOR=c.VENDOR AND a.GOVERNINGCARRIER=c.GOVERNINGCARRIER AND a.RULETARIFF=c.RULETARIFF " +
+            "LEFT OUTER JOIN EXCLBYRULEFARETYPE d ON a.CREATEDATE=d.CREATEDATE AND a.VENDOR=d.VENDOR AND a.GOVERNINGCARRIER=d.GOVERNINGCARRIER AND a.RULETARIFF=d.RULETARIFF " +
+            "WHERE    a.EXPIREDATE = TIMESTAMP '9999-12-31 23:59:59.999' " +
+            "AND      a.GOVERNINGCARRIER = '" + cxr + "' " +
+            "AND      a.RULETARIFF = " + tariff + " " +
+            "AND      b.RULE IN (" + rule + ") " +
+            "AND      a.TARIFFCAT = -1 " +
+            "AND      a.ROUTINGTARIFF1 = -1 " +
+            "AND      a.ROUTINGTARIFF2 = -1 " +
+            "AND      a.RULETARIFFCODE = ' ' " +
+            "AND      a.USERAPPLTYPE = ' ' " +
+            "AND      a.USERAPPL = ' ' " +
+            "AND      a.GLOBALDIR = ' ' " +
+            "AND      a.MPMIND = 'N' " +
+            "AND      a.ROUTINGIND = 'N' " +
+            "AND      a.ROUTING = ' ' " +
+            "AND      a.HIPMINFAREAPPL = 'Y' " +
+            "AND      a.HIPFARECOMPAPPL = 'N' " +
+            "AND      a.HIPSAMEGROUPAPPL = 'N' " +
+            "AND      a.DMCMINFAREAPPL = 'N' " +
+            "AND      a.DMCFARECOMPAPPL = 'N' " +
+            "AND      a.DMCSAMEGROUPAPPL = 'N' " +
+            "AND      a.COMMINFAREAPPL = 'N' " +
+            "AND      a.COMFARECOMPAPPL = 'N' " +
+            "AND      a.COMSAMEGROUPAPPL = 'N' " +
+            "AND      a.CPMMINFAREAPPL = 'N' " +
+            "AND      a.CPMFARECOMPAPPL = 'N' " +
+            "AND      a.CPMSAMEGROUPAPPL = 'N' " +
+            "AND      a.COPMINFAREAPPL = 'N' " +
+            "AND      a.COPFARECOMPAPPL = 'N' " +
+            "AND      a.COPSAMEGROUPAPPL = 'N' " +
+            "AND      a.OSCFARECOMPAPPL = 'N' " +
+            "AND      a.OSCSAMEGROUPAPPL = 'N' " +
+            "AND      a.RSCFARECOMPAPPL = 'N' " +
+            "AND      a.RSCSAMEGROUPAPPL = 'N' " +
+            "AND      b.FOOTNOTE = ' ' " +
+            "AND      c.FARECLASS is NULL " +
+            "AND      d.FARETYPE is NULL " +
+            "GROUP BY a.GOVERNINGCARRIER, a.RULETARIFF, a.SEQNO, b.RULE, a.HIPMINFAREAPPL, a.CREATEDATE";
+    } else {
+
+        string = "SELECT  DISTINCT a.GOVERNINGCARRIER," +
+
+            "a.RULETARIFF, " +
+            "a.SEQNO, " +
+            "b.RULE, " +
+            "a.HIPMINFAREAPPL, " +
+            "TO_CHAR (a.CREATEDATE, 'MM-DD-YYYY HH24:MI') AS CREATEDATE " +
+            "FROM EXCLUDEBYRULE a " +
+            "LEFT OUTER JOIN EXCLBYRULERULE b ON a.CREATEDATE=b.CREATEDATE AND a.VENDOR=b.VENDOR AND a.GOVERNINGCARRIER=b.GOVERNINGCARRIER AND a.RULETARIFF=b.RULETARIFF " +
+            "LEFT OUTER JOIN EXCLBYRULEFARECLASS c ON a.CREATEDATE=c.CREATEDATE AND a.VENDOR=c.VENDOR AND a.GOVERNINGCARRIER=c.GOVERNINGCARRIER AND a.RULETARIFF=c.RULETARIFF " +
+            "LEFT OUTER JOIN EXCLBYRULEFARETYPE d ON a.CREATEDATE=d.CREATEDATE AND a.VENDOR=d.VENDOR AND a.GOVERNINGCARRIER=d.GOVERNINGCARRIER AND a.RULETARIFF=d.RULETARIFF " +
+            "WHERE    a.EXPIREDATE = TIMESTAMP '9999-12-31 23:59:59.999' " +
+            "AND      a.GOVERNINGCARRIER = '" + cxr + "' " +
+            "AND      a.RULETARIFF = " + tariff + " " +
+            "AND      a.TARIFFCAT = -1 " +
+            "AND      a.ROUTINGTARIFF1 = -1 " +
+            "AND      a.ROUTINGTARIFF2 = -1 " +
+            "AND      a.RULETARIFFCODE = ' ' " +
+            "AND      a.USERAPPLTYPE = ' ' " +
+            "AND      a.USERAPPL = ' ' " +
+            "AND      a.GLOBALDIR = ' ' " +
+            "AND      a.MPMIND = 'N' " +
+            "AND      a.ROUTINGIND = 'N' " +
+            "AND      a.ROUTING = ' ' " +
+            "AND      a.HIPMINFAREAPPL = 'Y' " +
+            "AND      a.HIPFARECOMPAPPL = 'N' " +
+            "AND      a.HIPSAMEGROUPAPPL = 'N' " +
+            "AND      a.DMCMINFAREAPPL = 'N' " +
+            "AND      a.DMCFARECOMPAPPL = 'N' " +
+            "AND      a.DMCSAMEGROUPAPPL = 'N' " +
+            "AND      a.COMMINFAREAPPL = 'N' " +
+            "AND      a.COMFARECOMPAPPL = 'N' " +
+            "AND      a.COMSAMEGROUPAPPL = 'N' " +
+            "AND      a.CPMMINFAREAPPL = 'N' " +
+            "AND      a.CPMFARECOMPAPPL = 'N' " +
+            "AND      a.CPMSAMEGROUPAPPL = 'N' " +
+            "AND      a.COPMINFAREAPPL = 'N' " +
+            "AND      a.COPFARECOMPAPPL = 'N' " +
+            "AND      a.COPSAMEGROUPAPPL = 'N' " +
+            "AND      a.OSCFARECOMPAPPL = 'N' " +
+            "AND      a.OSCSAMEGROUPAPPL = 'N' " +
+            "AND      a.RSCFARECOMPAPPL = 'N' " +
+            "AND      a.RSCSAMEGROUPAPPL = 'N' " +
+            "AND      b.FOOTNOTE = ' ' " +
+            "AND      c.FARECLASS is NULL " +
+            "AND      d.FARETYPE is NULL " +
+            "GROUP BY a.GOVERNINGCARRIER, a.RULETARIFF, a.SEQNO, b.RULE, a.HIPMINFAREAPPL, a.CREATEDATE " +
+            "ORDER BY a.SEQNO";

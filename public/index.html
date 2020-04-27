@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.min.js"></script>
+
+    <title>Ticket image Request</title>
+</head>
+
+<body>
+
+    <div class="container-fluid bg-dark">
+        <div class="container-fluid pt-5">
+            <div class="row bg-dark">
+                <div class="col-12">
+                    <p class="display-3 text-center text-white">CAT 17 RULE FINDER</p>
+                </div>
+            </div>
+
+            <div class="row py-2 bg-light">
+                <div class="col-12">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+
+                            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="#">Menu 1</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="#">Menu 2</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Menu 3</a>
+                                </li>
+
+                            </ul>
+                            <!-- <form class="form-inline my-2 my-lg-0">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            </form> -->
+                        </div>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="row py-2">
+                <div class="col-xs-12 col-md-3 justify-content-center">
+                    <div class="row">
+                        <div class="col-12">
+                            <form>
+                                <div class="form-group">
+                                    <h3 class="display-4 text-white"><label for="cxr">Carrier</label></h3>
+                                    <input type="text" class="form-control" id="cxr" name="cxr">
+                                </div>
+                                <div class="form-group">
+                                    <h3 class="display-4 text-white"><label for="tariff">Tariff</label></h3>
+                                    <input type="text" class="form-control" id="tariff" name="tariff">
+                                </div>
+                                <div class="form-group">
+                                    <h3 class="display-4 text-white"><label for="rule">Rules</label></h3>
+                                    <input type="text" class="form-control overflow-auto" id="rule" name="rule">
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 text-right py-5 btn-group" role="group" aria-label="first group">
+                            <button type="button" class="btn btn-success btn-secondary mr-2 rounded" id="btnFind">FIND</button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="container col-xs-12 col-md-9">
+                    <div class="row py-2">
+                        <div class="container col-xs-12 col-md-9">
+                            <div class="col-12">
+                                <h4>
+                                    <p id='generic' class="text-left text-white">First generic sequence: </p>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row py-2">
+
+                        <div class="container col-xs-12 col-md-9 alto overflow-auto">
+
+                            <table class="table table-dark table-hover" id="myTable">
+
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <h2>
+                                            <th>Carrier</th>
+                                        </h2>
+                                        <h2>
+                                            <th>Tariff</th>
+                                        </h2>
+                                        <h2>
+                                            <th>Sequence</th>
+                                        </h2>
+                                        <h2>
+                                            <th>Rule</th>
+                                        </h2>
+                                        <h2>
+                                            <th>Application</th>
+                                        </h2>
+                                        <h2>
+                                            <th>Date</th>
+                                        </h2>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="body">
+
+                                </tbody>
+
+
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row align-items-center">
+                <div class="col-12 bg-dark ">
+                    <p class="display-9 text-center py-5 text-light">developed by Joaquin Soto</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!----script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script-->
+    <script src="index.js"></script>
+
+
+</body>
+
+
+</html>
