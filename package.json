@@ -21,7 +21,7 @@
         "require": "^2.4.20",
         "xml-formatter": "^2.0.0"
     },
-    "main": "server.js",
+    "main": "index.js",
     "keywords": [
         "example",
         "data",
