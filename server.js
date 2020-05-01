@@ -46,9 +46,6 @@ app.get('/getGeneric/:cxr/:tariff', (request, response) => {
 
             if (err) {
 
-                // console.log(con);
-                // console.error(err.message);
-                console.log("here1");
                 throw err;
                 // return;
             }
@@ -57,10 +54,10 @@ app.get('/getGeneric/:cxr/:tariff', (request, response) => {
 
                 if (err) {
 
-                    // console.log("here2");
-                    console.error(err.message);
-                    doRelease(connection);
-                    return;
+                    // console.error(err.message);
+                    throw err;
+                    // doRelease(connection);
+                    //return;
                 }
 
 
@@ -77,7 +74,6 @@ app.get('/getGeneric/:cxr/:tariff', (request, response) => {
 
 
                 if (result.rows.length == 0) {
-
 
                     console.log("no generic sequence was found");
 
@@ -96,11 +92,6 @@ app.get('/getGeneric/:cxr/:tariff', (request, response) => {
 
                 }
 
-
-                // console.log(error.message);
-                console.log("the query has not succeded");
-
-
                 doRelease(connection);
 
             });
@@ -112,9 +103,10 @@ app.get('/getGeneric/:cxr/:tariff', (request, response) => {
 
     } catch (e) {
 
-        console.log("here");
+        console.log("the query has not succeded");
         console.log(e.message);
-        console.log("here2");
+        response.json(e.message);
+
 
     } finally {
 
@@ -159,45 +151,60 @@ app.get('/getRules/:cxr/:tariff/:rule', (request, response) => {
 
             databaseRules.loadDatabase();
 
-            for (var i = 0; i < result.rows.length; i++) {
+            const data = {};
 
-                const data = {};
+            if (result.rows.length != 0) {
 
-                var row = result.rows[i];
-                data.cxr = row[0];
-                data.tariff = row[1];
-                data.seq = row[2];
-                data.rule = row[3];
-                data.app = row[4];
-                data.date = row[5];
+                data.message = result.rows.length + " rules found";
 
-                databaseRules.insert(data);
+
+                data.docs = result;
+
+                response.json(data);
+
+                // var docs = [];
+
+                // var doc = {};
+
+                console.log(result.rows);
+
+                // for (var i = 0; i < result.rows.length; i++) {
+
+                //     var row = result.rows[i];
+                //     doc.cxr = row[0];
+                //     doc.tariff = row[1];
+                //     doc.seq = row[2];
+                //     doc.rule = row[3];
+                //     doc.app = row[4];
+                //     doc.date = row[5];
+
+                //     docs[i] = doc;
+
+                // }
+
+
+                // databaseRules.insert(docs);
+
+
+                // databaseRules.find({}, function(err, docs) {
+
+                //     data.docs = docs;
+
+                //     response.json(data);
+
+                // });
+
+
+
+
+            } else {
+
+                data.message = "no rules found";
+
+                data.docs = [];
+
+                response.json(data);
             }
-
-            // database.find({}).sort({ rule: 1 }).skip(0).limit(0).exec(function(err, docs) {
-            //     // docs is [doc3, doc1]
-
-            //     response.json(docs);
-
-            // });
-
-            databaseRules.find({}).exec((err, docs) => {
-
-                let newDocs = docs.map((doc) => {
-
-                    doc.date = new Date(doc.date).valueOf(); // new property
-                    return doc; // return the new document
-
-                });
-
-                newDocs.sort((a, b) => {
-
-                    return b.date - a.date;
-                });
-
-                response.json(newDocs);
-
-            });
 
             doRelease(connection);
 
