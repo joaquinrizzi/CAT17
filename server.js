@@ -39,24 +39,29 @@ app.get('/getGeneric/:cxr/:tariff', (request, response) => {
 
     var sql = sequel(cxr, tariff, "");
 
-    oracledb.getConnection(con, function(err, connection) {
+    try {
 
-        if (err) {
-            console.log(con);
-            console.error(err.message);
-            return;
-        }
 
-        connection.execute(sql, [], { maxRows: 1 }, function(err, result) {
+        oracledb.getConnection(con, function(err, connection) {
 
             if (err) {
 
-                console.error(err.message);
-                doRelease(connection);
-                return;
+                // console.log(con);
+                // console.error(err.message);
+                throw err;
+                // return;
             }
 
-            try {
+            connection.execute(sql, [], { maxRows: 1 }, function(err, result) {
+
+                if (err) {
+
+                    console.log("here");
+                    console.error(err.message);
+                    doRelease(connection);
+                    return;
+                }
+
 
                 databaseGen.remove({}, { multi: true }, function(err, numRemoved) {
 
@@ -90,20 +95,29 @@ app.get('/getGeneric/:cxr/:tariff', (request, response) => {
                 }
 
 
-            } catch (error) {
-
-                console.log(error.message);
+                // console.log(error.message);
                 console.log("the query has not succeded");
-            }
 
-            doRelease(connection);
 
+                doRelease(connection);
+
+            });
+
+            // response.append(cxr);
+
+            // return response;
         });
 
-        // response.append(cxr);
+    } catch (e) {
 
-        // return response;
-    });
+        console.log(e.message);
+
+    } finally {
+
+
+    }
+
+
 
 });
 
