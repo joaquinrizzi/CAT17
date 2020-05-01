@@ -16,9 +16,12 @@ app.listen(port, () => {
 app.use(express.static('public'));
 app.use(express.json({ limit: '100kb' }));
 
-const database = new Datastore('database.db');
+const databaseGen = new Datastore('databaseGen.db');
+const databaseRules = new Datastore('databaseRules.db');
 
-database.loadDatabase();
+
+databaseGen.loadDatabase();
+databaseRules.loadDatabase();
 
 const con = {
 
@@ -53,15 +56,53 @@ app.get('/getGeneric/:cxr/:tariff', (request, response) => {
                 return;
             }
 
-            response.json(result.rows[0][2]);
+            try {
+
+                databaseGen.remove({}, { multi: true }, function(err, numRemoved) {
+
+                    databaseGen.loadDatabase(function(err) {
+                        // done
+                    });
+                });
+
+                databaseGen.loadDatabase();
+
+                const data = {};
+
+
+                if (result.rows.length == 0) {
+
+
+                    console.log("no generic sequence was found");
+
+                    data.message = "no generic sequence was found";
+
+                    response.json(data);
+
+                } else {
+
+                    console.log(result.rows[0][2]);
+
+                    data.message = "generic sequence found successfuly";
+                    data.value = result.rows[0][2];
+                    response.json(data);
+
+                }
+
+
+            } catch (error) {
+
+                console.log(error.message);
+                console.log("the query has not succeded");
+            }
 
             doRelease(connection);
 
         });
 
-        response.append(cxr);
+        // response.append(cxr);
 
-        return response;
+        // return response;
     });
 
 });
@@ -91,13 +132,14 @@ app.get('/getRules/:cxr/:tariff/:rule', (request, response) => {
                 return;
             }
 
-            database.remove({}, { multi: true }, function(err, numRemoved) {
-                database.loadDatabase(function(err) {
+            databaseRules.remove({}, { multi: true }, function(err, numRemoved) {
+
+                databaseRules.loadDatabase(function(err) {
                     // done
                 });
             });
 
-            database.loadDatabase();
+            databaseRules.loadDatabase();
 
             for (var i = 0; i < result.rows.length; i++) {
 
@@ -111,7 +153,7 @@ app.get('/getRules/:cxr/:tariff/:rule', (request, response) => {
                 data.app = row[4];
                 data.date = row[5];
 
-                database.insert(data);
+                databaseRules.insert(data);
             }
 
             // database.find({}).sort({ rule: 1 }).skip(0).limit(0).exec(function(err, docs) {
@@ -121,7 +163,7 @@ app.get('/getRules/:cxr/:tariff/:rule', (request, response) => {
 
             // });
 
-            database.find({}).exec((err, docs) => {
+            databaseRules.find({}).exec((err, docs) => {
 
                 let newDocs = docs.map((doc) => {
 
@@ -138,17 +180,6 @@ app.get('/getRules/:cxr/:tariff/:rule', (request, response) => {
                 response.json(newDocs);
 
             });
-
-            // database.find({}, (err, data) => {
-
-            //     if (err) {
-
-            //         response.end();
-            //         return;
-            //     }
-
-            //     response.json(data);
-            // });
 
             doRelease(connection);
 

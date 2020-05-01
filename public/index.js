@@ -50,13 +50,13 @@ async function getData() {
     const rule = document.getElementById('rule').value;
 
     const data = { cxr, tariff, rule };
-    const options = {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    };
+    // const options = {
+    //     method: 'POST',
+    //     headers: {
+    //         'content-type': 'application/json'
+    //     },
+    //     body: JSON.stringify(data)
+    // };
 
 
     if (data.length == 0) {
@@ -72,7 +72,7 @@ async function getData() {
 
         console.log(seq);
 
-        document.getElementById('generic').textContent = "First generic sequence: " + seq;
+        document.getElementById('generic').textContent = "First generic sequence: " + seq.value;
 
         if (rule != "") {
 
