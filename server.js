@@ -48,6 +48,7 @@ app.get('/getGeneric/:cxr/:tariff', (request, response) => {
 
                 // console.log(con);
                 // console.error(err.message);
+                console.log("here1");
                 throw err;
                 // return;
             }
@@ -56,7 +57,7 @@ app.get('/getGeneric/:cxr/:tariff', (request, response) => {
 
                 if (err) {
 
-                    console.log("here");
+                    // console.log("here2");
                     console.error(err.message);
                     doRelease(connection);
                     return;
@@ -86,6 +87,7 @@ app.get('/getGeneric/:cxr/:tariff', (request, response) => {
 
                 } else {
 
+                    // console.log("here2");
                     console.log(result.rows[0][2]);
 
                     data.message = "generic sequence found successfuly";
@@ -110,7 +112,9 @@ app.get('/getGeneric/:cxr/:tariff', (request, response) => {
 
     } catch (e) {
 
+        console.log("here");
         console.log(e.message);
+        console.log("here2");
 
     } finally {
 
