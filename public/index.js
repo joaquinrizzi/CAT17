@@ -95,6 +95,7 @@ async function getData() {
 
 function cleanPage() {
 
+    document.getElementById('generic').textContent = "";
     document.getElementById('messageGeneric').textContent = "";
     document.getElementById('messageRules').textContent = "";
 

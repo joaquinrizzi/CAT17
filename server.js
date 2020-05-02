@@ -121,7 +121,10 @@ app.get('/getRules/:cxr/:tariff/:rule', (request, response) => {
 
     const cxr = request.params.cxr;
     const tariff = request.params.tariff;
-    const rule = request.params.rule != "" ? request.params.rule : { $regex: /^[A-Z0-9]{4}/ };
+    // const rule = request.params.rule != "" ? request.params.rule : { $regex: /^[A-Z0-9]{4}/ };
+    const rule = request.params.rule;
+
+    var ruleCount = rule.split(",").length;
 
     var sql = sequel(cxr, tariff, rule);
 
@@ -155,7 +158,7 @@ app.get('/getRules/:cxr/:tariff/:rule', (request, response) => {
 
             if (result.rows.length != 0) {
 
-                data.message = result.rows.length + " rules found";
+                data.message = result.rows.length + " rules found from " + ruleCount;
 
 
                 data.docs = result;
